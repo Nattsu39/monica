@@ -7,7 +7,11 @@ import type {
 } from './types.js';
 import { deepCloneSingleAttrRecord } from './extra-bonuses/transforms/apply.js';
 
-export const ATTR_MODES = ['base', 'pve', 'pvp'] as const satisfies readonly AttrMode[];
+export const ATTR_MODES = [
+  'base',
+  'pve',
+  'pvp',
+] as const satisfies readonly AttrMode[];
 
 const IN_BATTLE_SCOPES = new Set<BonusScope>([
   'base_inbattle',

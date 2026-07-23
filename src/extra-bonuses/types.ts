@@ -17,27 +17,27 @@ export type BonusMechanism =
   /** 固定数值：直接按预设增量加成，无需玩家额外选择 */
   | { kind: 'fixed'; value: AttributeDelta }
   | {
-    kind: 'pick_n';
-    /** 可选项列表，每项为一组属性增量 */
-    options: ReadonlyArray<AttributeDelta>;
-    /** 必须选择的选项数量 */
-    pickCount: number;
-    /** 同一选项可否重复选取，默认 false */
-    repeatable?: boolean;
-  }
+      kind: 'pick_n';
+      /** 可选项列表，每项为一组属性增量 */
+      options: ReadonlyArray<AttributeDelta>;
+      /** 必须选择的选项数量 */
+      pickCount: number;
+      /** 同一选项可否重复选取，默认 false */
+      repeatable?: boolean;
+    }
   | {
-    kind: 'pool';
-    /** 可分配的总点数 */
-    total: number;
-    /** 各属性的分配上下限，未声明的项默认仅校验非负 */
-    bounds?: Partial<
-      Record<keyof SixAttributes, { min: number; max: number }>
-    >;
-  }
+      kind: 'pool';
+      /** 可分配的总点数 */
+      total: number;
+      /** 各属性的分配上下限，未声明的项默认仅校验非负 */
+      bounds?: Partial<
+        Record<keyof SixAttributes, { min: number; max: number }>
+      >;
+    }
   | {
-    kind: 'transfer_sources';
-    spec: SourceTransferSpec;
-  };
+      kind: 'transfer_sources';
+      spec: SourceTransferSpec;
+    };
 
 /** 注册表产出的「可用加成」描述 */
 export interface BonusDescriptor {

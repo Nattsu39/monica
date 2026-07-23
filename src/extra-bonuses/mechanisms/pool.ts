@@ -19,9 +19,7 @@ export function resolvePool(
   mechanism: {
     kind: 'pool';
     total: number;
-    bounds?: Partial<
-      Record<keyof SixAttributes, { min: number; max: number }>
-    >;
+    bounds?: Partial<Record<keyof SixAttributes, { min: number; max: number }>>;
   },
   selection: Extract<BonusSelection, { kind: 'pool' }>,
   bonusId: string,
