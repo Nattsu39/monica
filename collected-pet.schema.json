@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://monica.local/schemas/collected-pet.schema.json",
+  "title": "CollectedPet",
+  "description": "采集端上报的精灵面板快照schema定义",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attr_bonus_data",
+    "base_stats",
+    "cloths",
+    "collection_time",
+    "dv",
+    "effects",
+    "evs",
+    "extra_attr",
+    "level",
+    "nature",
+    "nature_attributes",
+    "nature_name",
+    "pet_catch_time",
+    "pet_id",
+    "pet_name",
+    "title_id"
+  ],
+  "properties": {
+    "attr_bonus_data": {
+      "$ref": "#/$defs/AttrBonusData"
+    },
+    "base_stats": {
+      "$ref": "#/$defs/SixAttributes",
+      "description": "精灵种族值（由 enrich 脚本从 SeerAPI 合并）"
+    },
+    "cloths": {
+      "type": "array",
+      "description": "装扮 ID 列表",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "collection_time": {
+      "type": "integer",
+      "description": "采集时间（Unix 时间戳，秒）",
+      "minimum": 0
+    },
+    "dv": {
+      "type": "integer",
+      "description": "个体值",
+      "minimum": 0,
+      "maximum": 31
+    },
+    "effects": {
+      "type": "array",
+      "description": "特性 / 魂印等效果列表",
+      "items": {
+        "$ref": "#/$defs/Effect"
+      }
+    },
+    "evs": {
+      "$ref": "#/$defs/SixAttributes",
+      "description": "学习力分配"
+    },
+    "extra_attr": {
+      "$ref": "#/$defs/SixAttributes",
+      "description": "额外能力值加成"
+    },
+    "level": {
+      "type": "integer",
+      "description": "等级",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "nature": {
+      "type": "integer",
+      "description": "性格 ID",
+      "minimum": 0
+    },
+    "nature_attributes": {
+      "$ref": "#/$defs/NatureAttributes",
+      "description": "性格能力修正（由 enrich 脚本从 SeerAPI 合并）"
+    },
+    "nature_name": {
+      "type": "string",
+      "description": "性格名称"
+    },
+    "pet_catch_time": {
+      "type": "integer",
+      "description": "精灵捕获时间（Unix 时间戳，秒），亦用作存储文件名",
+      "minimum": 0
+    },
+    "pet_id": {
+      "type": "integer",
+      "description": "精灵 ID",
+      "minimum": 1
+    },
+    "pet_name": {
+      "type": "string",
+      "description": "精灵名称"
+    },
+    "title_id": {
+      "type": "integer",
+      "description": "称号 ID",
+      "minimum": 0
+    }
+  },
+  "$defs": {
+    "SixAttributes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["atk", "def", "hp", "sp_atk", "sp_def", "spd"],
+      "properties": {
+        "atk": {
+          "type": "integer",
+          "description": "攻击",
+          "minimum": 0
+        },
+        "def": {
+          "type": "integer",
+          "description": "防御",
+          "minimum": 0
+        },
+        "hp": {
+          "type": "integer",
+          "description": "体力",
+          "minimum": 0
+        },
+        "sp_atk": {
+          "type": "integer",
+          "description": "特攻",
+          "minimum": 0
+        },
+        "sp_def": {
+          "type": "integer",
+          "description": "特防",
+          "minimum": 0
+        },
+        "spd": {
+          "type": "integer",
+          "description": "速度",
+          "minimum": 0
+        }
+      }
+    },
+    "NatureAttributes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["atk", "def", "hp", "sp_atk", "sp_def", "spd", "percent"],
+      "properties": {
+        "atk": {
+          "type": "number",
+          "description": "攻击修正（百分比或固定值，取决于 percent）"
+        },
+        "def": {
+          "type": "number",
+          "description": "防御修正"
+        },
+        "hp": {
+          "type": "number",
+          "description": "体力修正"
+        },
+        "sp_atk": {
+          "type": "number",
+          "description": "特攻修正"
+        },
+        "sp_def": {
+          "type": "number",
+          "description": "特防修正"
+        },
+        "spd": {
+          "type": "number",
+          "description": "速度修正"
+        },
+        "percent": {
+          "type": "boolean",
+          "description": "修正值是否为百分比"
+        }
+      }
+    },
+    "AttrBonusTypeName": {
+      "type": "string",
+      "enum": [
+        "学习力",
+        "刻印",
+        "战队加成",
+        "称号加成",
+        "年费加成",
+        "道具加成",
+        "专属特性",
+        "装扮加成",
+        "超能加成",
+        "神谕觉醒",
+        "特殊加成"
+      ]
+    },
+    "AttrBonusEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["percent", "type_id", "type_name", "value"],
+      "properties": {
+        "percent": {
+          "type": "number",
+          "description": "百分比加成"
+        },
+        "type_id": {
+          "type": "integer",
+          "description": "加成来源类型 ID",
+          "minimum": 1,
+          "maximum": 11
+        },
+        "type_name": {
+          "$ref": "#/$defs/AttrBonusTypeName"
+        },
+        "value": {
+          "type": "number",
+          "description": "固定数值加成"
+        }
+      }
+    },
+    "AttrBonusBucket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base", "base_total", "pve", "pve_total", "pvp", "pvp_total"],
+      "properties": {
+        "base": {
+          "type": "array",
+          "description": "基础面板各来源加成明细",
+          "items": {
+            "$ref": "#/$defs/AttrBonusEntry"
+          }
+        },
+        "base_total": {
+          "type": "number",
+          "description": "基础面板加成合计"
+        },
+        "pve": {
+          "type": "array",
+          "description": "PVE 面板各来源加成明细",
+          "items": {
+            "$ref": "#/$defs/AttrBonusEntry"
+          }
+        },
+        "pve_total": {
+          "type": "number",
+          "description": "PVE 面板加成合计"
+        },
+        "pvp": {
+          "type": "array",
+          "description": "PVP 面板各来源加成明细",
+          "items": {
+            "$ref": "#/$defs/AttrBonusEntry"
+          }
+        },
+        "pvp_total": {
+          "type": "number",
+          "description": "PVP 面板加成合计"
+        }
+      }
+    },
+    "AttrBonusData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["atk", "def", "hp", "sp_atk", "sp_def", "spd"],
+      "properties": {
+        "atk": {
+          "$ref": "#/$defs/AttrBonusBucket"
+        },
+        "def": {
+          "$ref": "#/$defs/AttrBonusBucket"
+        },
+        "hp": {
+          "$ref": "#/$defs/AttrBonusBucket"
+        },
+        "sp_atk": {
+          "$ref": "#/$defs/AttrBonusBucket"
+        },
+        "sp_def": {
+          "$ref": "#/$defs/AttrBonusBucket"
+        },
+        "spd": {
+          "$ref": "#/$defs/AttrBonusBucket"
+        }
+      }
+    },
+    "Effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["args", "id", "status"],
+      "properties": {
+        "args": {
+          "type": "array",
+          "description": "效果参数",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "description": "效果 ID"
+        },
+        "status": {
+          "type": "integer",
+          "description": "效果状态"
+        }
+      }
+    }
+  }
+}

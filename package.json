@@ -1,0 +1,49 @@
+{
+  "name": "monica",
+  "version": "1.0.0",
+  "description": "Node.js backend in TypeScript.",
+  "type": "module",
+  "packageManager": "pnpm@10.29.2",
+  "engines": {
+    "node": ">= 24.11 < 25",
+    "pnpm": ">= 10.29.2"
+  },
+  "scripts": {
+    "clean": "rimraf coverage build tmp",
+    "prebuild": "pnpm run lint",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "build:release": "pnpm run clean && tsc -p tsconfig.release.json",
+    "lint": "eslint .",
+    "test": "vitest run unit --config __tests__/vitest.config.ts",
+    "test:integration": "vitest run integration --config __tests__/vitest.config.ts",
+    "test:all": "vitest run --config __tests__/vitest.config.ts",
+    "diagnose:bonus-order": "node --experimental-strip-types __tests__/validation/diagnose-bonus-order.ts",
+    "test:coverage": "vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all",
+    "prettier": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --write",
+    "prettier:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check",
+    "test:watch": "vitest unit"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "tslib": "~2.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "~10.0.1",
+    "@types/node": "~24",
+    "@typescript-eslint/parser": "~8.59.0",
+    "@vitest/coverage-v8": "~4.1.4",
+    "@vitest/eslint-plugin": "~1.6.15",
+    "ajv": "^8.20.0",
+    "eslint": "~10.2",
+    "eslint-config-prettier": "~10.1",
+    "globals": "~17.5.0",
+    "prettier": "~3.8",
+    "rimraf": "~6.1.3",
+    "ts-api-utils": "~2.5.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "~8.59.0",
+    "vitest": "~4.1.4"
+  }
+}

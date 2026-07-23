@@ -1,0 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Dependencies
+node_modules/
+
+# Coverage
+coverage
+
+# Transpiled files
+build/
+
+# VS Code
+.vscode
+!.vscode/tasks.js
+
+# JetBrains IDEs
+.idea/
+
+# Optional npm cache directory
+.npm
+
+# Mise local override
+mise.local.toml
+
+# Optional eslint cache
+.eslintcache
+
+# Dev data collection
+data/collected/
+
+# Misc
+.DS_Store
