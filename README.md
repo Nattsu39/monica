@@ -196,6 +196,7 @@ for (const detail of result.base.hp.details) {
 ## 致谢🫡
 - [@HurryWang](https://seerinfo.yuyuqaq.cn/)
 - [@朵佬](https://crispww.cn/SEER/)
+- [@火火酱🤤](https://seerinfo.yuyuqaq.cn/firedict)
 - [@夜黎](https://github.com/DawnNights)
 - [@鸡翅少侠](https://space.bilibili.com/234073672)
 - [@二代王刻何时归](https://space.bilibili.com/3493126167595014)
