@@ -298,6 +298,10 @@ function applyPanelBonuses(
   applyExtraBonusesToTargets([result.pvp], pvpOnly);
 }
 
+/** 计算器主入口
+ * @param options - 计算精灵属性所需参数
+ * @returns 精灵属性计算结果
+ */
 export function calcPetAttr(options: PetAttrCalcOptions): PetAttrCalcResult {
   const { level, baseStats, evs, dv, natureBonus } = options;
   const raceStats = options.awakenBaseStats ?? baseStats;
