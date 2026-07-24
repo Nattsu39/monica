@@ -21,9 +21,10 @@ import {
   calcPetAttr,
   defaultSelectionEntryFor,
   listAvailableBonuses,
+  PRIORITY_CONSTS,
   type BonusSelectionEntry,
+  type PetAttrCalcOptions,
 } from 'seer-monica';
-import type { PetAttrCalcOptions } from '../src/types.js';
 
 const petId = 3022;
 const level = 100;
@@ -131,7 +132,29 @@ const petInfo: PetAttrCalcOptions = {
   ],
   // 加成选择
   bonusSelections,
-  extraBonuses: [],
+  // 计算器内不提供装备/称号/能量珠加成数据，需自行填入
+  extraBonuses: [
+    {
+      scope: 'base',
+      value: {
+        atkPercent: 10,
+        defPercent: 10,
+        hpPercent: 10,
+        spAtkPercent: 10,
+        spDefPercent: 10,
+        spdPercent: 10,
+        atk: 0,
+        def: 0,
+        spAtk: 0,
+        spDef: 0,
+        spd: 0,
+        hp: 0,
+      },
+      priority: PRIORITY_CONSTS.base.EQUIPMENT_BONUS, // 装扮加成优先级（计算节点）
+      description: '典狱官套装',
+      source: '装扮加成',
+    },
+  ],
 };
 
 const result = calcPetAttr(petInfo);
@@ -143,14 +166,24 @@ for (const stat of ['atk', 'def', 'hp', 'spAtk', 'spDef', 'spd'] as const) {
 
 console.log('\n加成明细（atk）:');
 for (const detail of result.base.atk.details) {
-  console.log(`  ${detail.name} +${detail.value}（${detail.description}）`);
+  let string = `  ${detail.name} +${detail.value}（${detail.description}）`;
+  if (detail.percent) {
+    string += `（+${detail.percent}%）`;
+  }
+  console.log(string);
 }
 
 console.log('\n加成明细（hp）:');
 for (const detail of result.base.hp.details) {
-  console.log(`  ${detail.name} +${detail.value}（${detail.description}）`);
+  let string = `  ${detail.name} +${detail.value}（${detail.description}）`;
+  if (detail.percent) {
+    string += `（+${detail.percent}%）`;
+  }
+  console.log(string);
 }
+
 ```
+
 ## 莫妮卡的日记📙
 在为计算器收集数据的过程中，我们发现了一些值得记录的事，详见[这里](./docs/monica-diary.md)。
 

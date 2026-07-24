@@ -8,6 +8,11 @@
     "node": ">= 24.11 < 25",
     "pnpm": ">= 10.29.2"
   },
+  "files": [
+    "build/**/*",
+    "LICENSE",
+    "README*.md"
+  ],
   "exports": {
     ".": {
       "types": "./build/main.d.ts",
