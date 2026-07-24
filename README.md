@@ -12,10 +12,17 @@
 ## 莫妮卡的日记📙
 在为计算器收集数据的过程中，我们发现了一些值得记录的事，详见[这里](./docs/monica-diary.md)。
 
+## TODO🧪
+- [ ] 繁殖精灵二代加成
+- [ ] 异能精灵光效
+- [ ] 谱尼特训
+- [ ] 老头/圣武/天堂极龙兽等战斗内加成
+
 ## 致谢🫡
 - [@HurryWang](https://seerinfo.yuyuqaq.cn/)
 - [@朵佬](https://crispww.cn/SEER/)
 - [@夜黎](https://github.com/DawnNights)
 - [@鸡翅少侠](https://space.bilibili.com/234073672)
+- [@二代王刻何时归](https://space.bilibili.com/3493126167595014)
 
 以及Sunrise战队的阿肥，文皇，表哥等群友。

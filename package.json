@@ -1,12 +1,15 @@
 {
   "name": "monica",
   "version": "1.0.0",
-  "description": "Node.js backend in TypeScript.",
+  "description": "基于实际游戏数据的赛尔号精灵配置计算器",
   "type": "module",
   "packageManager": "pnpm@10.29.2",
   "engines": {
     "node": ">= 24.11 < 25",
     "pnpm": ">= 10.29.2"
+  },
+  "exports": {
+    ".": "./build/index.js"
   },
   "scripts": {
     "clean": "rimraf coverage build tmp",
@@ -19,6 +22,7 @@
     "test:integration": "vitest run integration --config __tests__/vitest.config.ts",
     "test:all": "vitest run --config __tests__/vitest.config.ts",
     "diagnose:bonus-order": "node --experimental-strip-types __tests__/validation/diagnose-bonus-order.ts",
+    "enrich:collected": "node --experimental-strip-types scripts/enrich-collected-pets.ts",
     "test:coverage": "vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all",
     "prettier": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --write",
     "prettier:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check",
