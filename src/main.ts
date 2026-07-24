@@ -61,7 +61,7 @@ export function calcNonHpStat(
     details: [
       {
         name: '学习力',
-        value: evStat * (level / 100) * natureModifier,
+        value: Math.floor(evStat * (level / 100) * natureModifier),
         description: `学习力 ${ev}÷4`,
       },
     ],
@@ -86,7 +86,7 @@ export function calcHpStat(
     details: [
       {
         name: '学习力',
-        value: evStat * (level / 100),
+        value: Math.floor(evStat * (level / 100)),
         description: `学习力 ${ev}÷4`,
       },
     ],
@@ -184,7 +184,7 @@ function bonusHasPercent(bonus: ExtraBonus): boolean {
 
 /**
  * 排序：固定值加成整组先于百分比加成，组内再按 priority 升序。
- * 固定值可交换；多百分比采用复合乘法后一次性取整（见 applyPercentsCompound）。
+ * 固定值可交换；百分比按序逐步取整复合（见 applyPercentsCompound）。
  */
 function compareExtraBonuses(left: ExtraBonus, right: ExtraBonus): number {
   const leftPercent = bonusHasPercent(left);
@@ -221,44 +221,41 @@ function applyFlatOnly(
 }
 
 /**
- * 多百分比复合：running *= Π(1 + p_i/100)，最后一次性向下取整。
+ * 多百分比依次复合：每步 running = floor(running × (1 + p/100))，
+ * 明细记录整数增量与 percent，便于逐项移除后重算保持一致。
  */
 function applyPercentsCompound(
   target: Record<keyof SixAttributes, SingleAttr>,
   bonuses: readonly ExtraBonus[],
 ): void {
   for (const key of SIX_ATTR_KEYS) {
-    const before = target[key].value;
-    let running = before;
-    let anyPercent = false;
+    let running = target[key].value;
 
     for (const bonus of bonuses) {
       const percent = bonus.value[`${key}Percent`];
       if (percent === 0) {
         continue;
       }
-      anyPercent = true;
-      const next = running * (1 + percent / 100);
+      const next = Math.floor(running * (1 + percent / 100));
+      const increment = next - running;
       const detailName = bonus.source ?? '特殊加成';
       const description = bonus.description ?? `${percent}%`;
       target[key].details.push({
         name: detailName,
-        // 明细为复合过程中的浮点增量；最终面板值在下方一次性取整
-        value: next - running,
+        percent,
+        value: increment,
         description,
       });
       running = next;
     }
 
-    if (anyPercent) {
-      target[key].value = Math.floor(running);
-    }
+    target[key].value = running;
   }
 }
 
 /**
- * 先应用全部固定值，再复合应用全部百分比并取整。
- * 与「固定值整组先于百分比」一致；百分比之间顺序不影响最终取整结果。
+ * 先应用全部固定值，再按序复合应用全部百分比（每步取整）。
+ * 与「固定值整组先于百分比」一致。
  */
 function applyExtraBonusesToTargets(
   targets: readonly Record<keyof SixAttributes, SingleAttr>[],

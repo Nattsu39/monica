@@ -66,6 +66,7 @@ export type AttrItemName =
 
 export interface AttrDetail {
   name: AttrItemName;
+  percent?: number;
   value: number;
   description: string;
 }

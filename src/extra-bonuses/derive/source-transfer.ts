@@ -43,9 +43,11 @@ export function computeEvDetailValue(
 ): number {
   const evStat = evs[stat] / 4;
   if (stat === 'hp') {
-    return evStat * (level / 100);
+    return Math.floor(evStat * (level / 100));
   }
-  return evStat * (level / 100) * getNatureModifier(natureBonus, stat);
+  return Math.floor(
+    evStat * (level / 100) * getNatureModifier(natureBonus, stat),
+  );
 }
 
 /** 汇总刻印数组在指定属性上的固定值贡献 */

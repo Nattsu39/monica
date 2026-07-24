@@ -122,7 +122,7 @@ describe('computeEvDetailValue / computeMintmarkDetailSum', () => {
       hp: 0,
     };
     const neutralNature = { ...emptyNature, spdPercent: 1 };
-    expect(computeEvDetailValue('spd', 100, evs, neutralNature)).toBe(63.75);
+    expect(computeEvDetailValue('spd', 100, evs, neutralNature)).toBe(63);
   });
 
   it('汇总刻印固定值', () => {
@@ -265,9 +265,9 @@ describe('calcPetAttr transfer_sources integration', () => {
       (d) => d.name === '专属特性',
     );
 
-    expect(spdEvDetail?.value).toBeCloseTo(70.125);
+    expect(spdEvDetail?.value).toBe(70);
     expect(spdMintDetail?.value).toBe(86);
-    expect(hpSoulmarkDetail?.value).toBeCloseTo(156.125);
+    expect(hpSoulmarkDetail?.value).toBe(156);
   });
 
   it('scope=pvp 时仅 pvp 桶获得搬运加成', () => {
@@ -386,7 +386,7 @@ describe('calcPetAttr transfer_sources integration', () => {
       (d) => d.name === '专属特性',
     );
     const soulmarkSum = soulmarkDetails.reduce((sum, d) => sum + d.value, 0);
-    expect(soulmarkSum).toBeCloseTo(206.125);
+    expect(soulmarkSum).toBe(206);
   });
 });
 
