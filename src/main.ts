@@ -394,6 +394,22 @@ export function calcPetAttr(options: PetAttrCalcOptions): PetAttrCalcResult {
   return result;
 }
 
+/** 核心计算输入/输出与属性结构（见 {@link calcPetAttr}） */
+export type {
+  AttrBucket,
+  AttrDetail,
+  AttrItemName,
+  AttrMode,
+  BonusScope,
+  ExtraBonus,
+  MintmarkAttr,
+  PercentSixAttributes,
+  PetAttrCalcOptions,
+  PetAttrCalcResult,
+  SingleAttr,
+  SixAttributes,
+  Soulmark,
+} from './types.js';
 /** 加成描述与玩家选择相关类型（见 {@link listAvailableBonuses}） */
 export type {
   BonusDescriptor,
@@ -418,3 +434,5 @@ export {
   defaultSelectionFor,
   listAvailableBonuses,
 } from './extra-bonuses/catalog.js';
+/** 自定义 {@link ExtraBonus} 时与内置加成对齐的 priority 常量 */
+export { PRIORITY_CONSTS } from './extra-bonuses/priority-const.js';
