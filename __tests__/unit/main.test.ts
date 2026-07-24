@@ -1,7 +1,12 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { BonusRegistry } from '../../src/extra-bonuses/registry.js';
 import { registerGlobalFixedBonus } from '../../src/extra-bonuses/register-global-bonus.js';
-import { calcBaseSixAttributes, calcPetAttr } from '../../src/main.js';
+import {
+  calcBaseSixAttributes,
+  calcPetAttr,
+  defaultSelectionEntryFor,
+  listAvailableBonuses,
+} from '../../src/main.js';
 
 function registerSoulmark265(registry: BonusRegistry): void {
   registry.registerSoulmarkBonus({
@@ -88,6 +93,34 @@ describe('calcPetAttr with BonusRegistry', () => {
     expect(result.base.atk.details.some((d) => d.name === '专属特性')).toBe(
       true,
     );
+  });
+
+  it('通过 listAvailableBonuses 与 defaultSelectionEntryFor 构建 selections', () => {
+    const soulmark = { effect_id: 265, args: [10, 0, 0, 10, 0, 0] as number[] };
+    const available = listAvailableBonuses({
+      id: 2234,
+      level: 100,
+      soulmark,
+      bonusRegistry: registry,
+    });
+    const bonusSelections = available.selectable.map(defaultSelectionEntryFor);
+
+    const result = calcPetAttr({
+      id: 2234,
+      level: 100,
+      baseStats,
+      dv: 31,
+      natureBonus: emptyNature,
+      evs: emptyEvs,
+      mintmarks: [],
+      soulmark,
+      bonusRegistry: registry,
+      bonusSelections,
+      extraBonuses: [],
+    });
+
+    expect(result.base.atk.value).toBe(236 + 10 + 15);
+    expect(result.base.spDef.value).toBe(236 + 10);
   });
 
   it('传入 awakenBaseStats 时用其计算基础值，并将与 baseStats 的差值记入神谕觉醒', () => {

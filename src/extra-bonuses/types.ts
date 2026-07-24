@@ -12,7 +12,7 @@ export type { SourceTransferSpec };
 /** 单项属性增量（固定值或百分比，未出现的项视为 0） */
 export type AttributeDelta = Partial<SixAttributes & PercentSixAttributes>;
 
-/** 加成机制：三种模式的判别联合 */
+/** 加成机制：四种模式的判别联合 */
 export type BonusMechanism =
   /** 固定数值：直接按预设增量加成，无需玩家额外选择 */
   | { kind: 'fixed'; value: AttributeDelta }
@@ -39,7 +39,7 @@ export type BonusMechanism =
       spec: SourceTransferSpec;
     };
 
-/** 注册表产出的「可用加成」描述 */
+/** 注册表 lookup 产出的「可用加成」描述；`id` 即 `bonusSelections` 中引用的键 */
 export interface BonusDescriptor {
   id: string;
   source: AttrItemName;
@@ -49,7 +49,10 @@ export interface BonusDescriptor {
   mechanism: BonusMechanism;
 }
 
-/** 玩家对该项加成的选择（`kind` 须与对应 `BonusMechanism.kind` 一致） */
+/**
+ * 玩家对某项加成的具体选择。
+ * `kind` 必须与对应 {@link BonusDescriptor.mechanism} 的 `kind` 一致。
+ */
 export type BonusSelection =
   /** 固定数值机制：无需额外参数 */
   | { kind: 'fixed' }
@@ -60,13 +63,16 @@ export type BonusSelection =
   /** 来源搬运机制：无需额外参数 */
   | { kind: 'transfer_sources' };
 
-/** 玩家选择条目，通过 `id` 与 `BonusDescriptor` 配对 */
+/**
+ * 传入 {@link calcPetAttr} 的 `bonusSelections` 的单项。
+ * 通过 `id` 与 {@link listAvailableBonuses} 返回的 descriptor 配对；仅列表中的 id 会被解析。
+ */
 export interface BonusSelectionEntry {
   id: string;
   selection: BonusSelection;
 }
 
-/** 加成 lookup 上下文 */
+/** registry lookup 上下文：`petId` 对应 `PetAttrCalcOptions.id` */
 export interface PetBonusContext {
   petId: number;
   level: number;

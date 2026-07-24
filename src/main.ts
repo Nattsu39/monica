@@ -11,10 +11,8 @@ import {
   getScopeTargets,
   isInBattleScope,
 } from './attr-scopes.js';
-import type { PetBonusContext } from './extra-bonuses/types.js';
-import { defaultBonusRegistry } from './extra-bonuses/registry.js';
+import { listAvailableBonuses } from './extra-bonuses/catalog.js';
 import {
-  partitionDescriptorsByMechanism,
   resolveBonuses,
   resolveTransferBonuses,
 } from './extra-bonuses/resolve.js';
@@ -333,15 +331,11 @@ export function calcPetAttr(options: PetAttrCalcOptions): PetAttrCalcResult {
     }
   }
 
-  const bonusContext: PetBonusContext = {
-    petId: options.id,
-    level: options.level,
-    soulmark: options.soulmark,
-  };
-  const registry = options.bonusRegistry ?? defaultBonusRegistry;
-  const descriptors = registry.lookup(bonusContext);
-  const { static: staticDescriptors, transfer: transferDescriptors } =
-    partitionDescriptorsByMechanism(descriptors);
+  const {
+    static: staticDescriptors,
+    transfer: transferDescriptors,
+    transforms: registryTransforms,
+  } = listAvailableBonuses(options);
   const staticSelectionIds = new Set(staticDescriptors.map((d) => d.id));
   const transferSelectionIds = new Set(transferDescriptors.map((d) => d.id));
   const staticSelections = options.bonusSelections.filter((entry) =>
@@ -391,10 +385,35 @@ export function calcPetAttr(options: PetAttrCalcOptions): PetAttrCalcResult {
   }
 
   const transforms = [
-    ...registry.lookupTransforms(bonusContext),
+    ...registryTransforms,
     ...(options.externalTransforms ?? []),
   ];
   applyTransforms(result, transforms);
 
   return result;
 }
+
+/** 加成描述与玩家选择相关类型（见 {@link listAvailableBonuses}） */
+export type {
+  BonusDescriptor,
+  BonusMechanism,
+  BonusSelection,
+  BonusSelectionEntry,
+  PetBonusContext,
+} from './extra-bonuses/types.js';
+/** 魂印属性变换描述 */
+export type { TransformDescriptor } from './extra-bonuses/transforms/types.js';
+/** {@link listAvailableBonuses} 的返回值 */
+export type { AvailableBonuses } from './extra-bonuses/catalog.js';
+/** 加成注册表；默认数据见 {@link defaultBonusRegistry} */
+export {
+  BonusRegistry,
+  defaultBonusRegistry,
+} from './extra-bonuses/registry.js';
+/** 加成目录 API：发现可选 descriptor、生成默认 selection */
+export {
+  buildBonusContext,
+  defaultSelectionEntryFor,
+  defaultSelectionFor,
+  listAvailableBonuses,
+} from './extra-bonuses/catalog.js';
