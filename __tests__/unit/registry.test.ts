@@ -43,7 +43,7 @@ describe('BonusRegistry', () => {
       value: { atk: 15 },
     });
 
-    const descriptors = registry.lookup({ petId: 1, level: 100 });
+    const descriptors = registry.lookup({ id: 1, level: 100 });
     expect(descriptors).toHaveLength(1);
     expect(descriptors[0].id).toBe('team-atk-15');
   });
@@ -61,8 +61,8 @@ describe('BonusRegistry', () => {
       },
     });
 
-    expect(registry.lookup({ petId: 100, level: 100 })).toHaveLength(1);
-    expect(registry.lookup({ petId: 999, level: 100 })).toHaveLength(0);
+    expect(registry.lookup({ id: 100, level: 100 })).toHaveLength(1);
+    expect(registry.lookup({ id: 999, level: 100 })).toHaveLength(0);
   });
 
   it('soulmark 加成按 effect_id 命中，无需 petIds', () => {
@@ -72,7 +72,7 @@ describe('BonusRegistry', () => {
     }));
 
     const withSoulmark = registry.lookup({
-      petId: 999,
+      id: 999,
       level: 100,
       soulmark: { effect_id: 265, args: [10, 0, 0, 10, 0, 0] },
     });
@@ -82,7 +82,7 @@ describe('BonusRegistry', () => {
       value: { atk: 10, spDef: 10 },
     });
 
-    expect(registry.lookup({ petId: 999, level: 100 })).toHaveLength(0);
+    expect(registry.lookup({ id: 999, level: 100 })).toHaveLength(0);
   });
 
   it('重复注册同一 bonusId 时抛错', () => {
@@ -125,7 +125,7 @@ describe('BonusRegistry', () => {
 
     const ids = registry
       .lookup({
-        petId: 1,
+        id: 1,
         level: 100,
         soulmark: { effect_id: 1, args: [0, 0, 0, 0, 0, 10] },
       })
@@ -186,7 +186,7 @@ describe('registerGlobalPickNBonus', () => {
       pickCount: 2,
     });
 
-    const descriptors = registry.lookup({ petId: 1, level: 100 });
+    const descriptors = registry.lookup({ id: 1, level: 100 });
     const resolved = resolveBonuses(descriptors, [
       {
         id: 'vip-year-pick-2',

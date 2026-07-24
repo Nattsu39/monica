@@ -38,7 +38,7 @@ export interface PetAttrCalcOptions {
   level: number;
   baseStats: SixAttributes;
   awakenBaseStats?: SixAttributes;
-  dv: number;
+  iv: number;
   natureBonus: PercentSixAttributes;
   evs: SixAttributes;
   mintmarks: AtMost3<MintmarkAttr>;

@@ -78,7 +78,7 @@ export class BonusRegistry {
     }
 
     for (const entry of this.petBonuses) {
-      if (entry.petIds.includes(context.petId)) {
+      if (entry.petIds.includes(context.id)) {
         result.push(entry.descriptor);
       }
     }

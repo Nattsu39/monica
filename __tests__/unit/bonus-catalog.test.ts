@@ -91,10 +91,8 @@ const transferDescriptor: BonusDescriptor = {
 describe('buildBonusContext', () => {
   it('从 PetAttrCalcOptions 字段构建 PetBonusContext', () => {
     const soulmark = { effect_id: 265, args: [10, 0, 0, 10, 0, 0] as number[] };
-    expect(
-      buildBonusContext({ id: 2234, level: 100, soulmark }),
-    ).toEqual({
-      petId: 2234,
+    expect(buildBonusContext({ id: 2234, level: 100, soulmark })).toEqual({
+      id: 2234,
       level: 100,
       soulmark,
     });

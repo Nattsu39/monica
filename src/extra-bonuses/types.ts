@@ -72,9 +72,9 @@ export interface BonusSelectionEntry {
   selection: BonusSelection;
 }
 
-/** registry lookup 上下文：`petId` 对应 `PetAttrCalcOptions.id` */
+/** registry lookup 上下文：`id` 对应 `PetAttrCalcOptions.id` */
 export interface PetBonusContext {
-  petId: number;
+  id: number;
   level: number;
   soulmark?: Soulmark;
 }

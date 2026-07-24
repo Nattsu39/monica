@@ -57,7 +57,7 @@ export function buildBonusContext(
   options: Pick<PetAttrCalcOptions, 'id' | 'level' | 'soulmark'>,
 ): PetBonusContext {
   return {
-    petId: options.id,
+    id: options.id,
     level: options.level,
     soulmark: options.soulmark,
   };

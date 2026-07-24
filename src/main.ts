@@ -303,7 +303,7 @@ function applyPanelBonuses(
  * @returns 精灵属性计算结果
  */
 export function calcPetAttr(options: PetAttrCalcOptions): PetAttrCalcResult {
-  const { level, baseStats, evs, dv, natureBonus } = options;
+  const { level, baseStats, evs, iv: dv, natureBonus } = options;
   const raceStats = options.awakenBaseStats ?? baseStats;
   const baseAttrs = calcBaseSixAttributes(
     level,
