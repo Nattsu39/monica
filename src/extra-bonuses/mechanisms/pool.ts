@@ -47,10 +47,8 @@ export function resolvePool(
     sum += value;
   }
 
-  if (sum !== total) {
-    throw new Error(
-      `加成 ${bonusId}：pool 分配总和 ${sum} 与总量 ${total} 不一致`,
-    );
+  if (sum > total) {
+    throw new Error(`加成 ${bonusId}：pool 分配总和 ${sum} 大于总量 ${total}`);
   }
 
   return result;
