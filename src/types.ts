@@ -61,8 +61,7 @@ export type AttrItemName =
   | '超能加成'
   | '神谕觉醒'
   | '特殊加成'
-  | '基础值加成'
-  | '额外体力上限';
+  | '基础值加成';
 
 export interface AttrDetail {
   name: AttrItemName;
