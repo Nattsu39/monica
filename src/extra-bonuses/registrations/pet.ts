@@ -306,24 +306,6 @@ export function registerPetBonuses(): void {
   });
 
   defaultBonusRegistry.registerPetBonus({
-    petIds: [1114, 1115, 1155, 1156],
-    descriptor: {
-      id: '血狼一族加成',
-      source: '基础值加成',
-      scope: 'base_inbattle',
-      priority: 0,
-      description:
-        '血狼一族加成，威沃夫和威里特在背包中会为彼此提供50点体力加成。',
-      mechanism: {
-        kind: 'fixed',
-        value: {
-          hp: 50,
-        },
-      },
-    },
-  });
-
-  defaultBonusRegistry.registerPetBonus({
     petIds: [1114, 1115, 1155, 1156, 1956],
     descriptor: {
       id: '血狼一族狼王加成',
