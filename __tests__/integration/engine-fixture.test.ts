@@ -109,7 +109,7 @@ describe('calcPetAttr engine vs collected fixtures', () => {
     expect(
       result.base.hp.details.some(
         (detail) =>
-          detail.name === '额外体力上限' && detail.value === pet.extra_attr.hp,
+          detail.name === '基础值加成' && detail.value === pet.extra_attr.hp,
       ),
     ).toBe(true);
     expect(result.base.hp.value).toBe(pet.attr_bonus_data.hp.base_total);

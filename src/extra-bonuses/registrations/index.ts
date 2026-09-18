@@ -33,7 +33,7 @@ export function registerDefaultBonuses(): void {
   defaultBonusRegistry.registerGlobalBonus({
     descriptor: {
       id: 'extra-hp',
-      source: '额外体力上限',
+      source: '基础值加成',
       scope: 'base',
       priority: 0,
       description: '额外体力上限，使用体力合剂提升',

@@ -105,8 +105,7 @@ function isAttrItemName(name: string): name is AttrItemName {
     name === '超能加成' ||
     name === '神谕觉醒' ||
     name === '特殊加成' ||
-    name === '基础值加成' ||
-    name === '额外体力上限'
+    name === '基础值加成'
   );
 }
 
@@ -224,7 +223,7 @@ export function extraAttrToBonus(pet: CollectedPet): ExtraBonus | undefined {
     // 写入 base，随后由引擎克隆到 pve/pvp
     scope: 'base',
     priority: EARLY_BONUS_PRIORITY,
-    source: '额外体力上限',
+    source: '基础值加成',
     description: '采集 extra_attr（含额外体力上限等固定值）',
     value,
   };
