@@ -1,5 +1,6 @@
 import { defaultBonusRegistry } from '../registry.js';
 import { registerGlobalFixedBonus } from '../register-global-bonus.js';
+import { registerPetBonuses } from './pet.js';
 import {
   registerSoulmarkBonuses,
   registerSoulmarkTransforms,
@@ -61,5 +62,6 @@ export function registerDefaultBonuses(): void {
 }
 
 registerDefaultBonuses();
+registerPetBonuses();
 registerSoulmarkBonuses();
 registerSoulmarkTransforms();
