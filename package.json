@@ -1,6 +1,6 @@
 {
   "name": "seer-monica",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "基于实际游戏数据的赛尔号精灵配置计算器",
   "type": "module",
   "packageManager": "pnpm@10.29.2",
